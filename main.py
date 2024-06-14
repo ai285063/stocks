@@ -12,12 +12,15 @@ def get_date_x_days_before(date_string, num_days_before):
     return new_date_string
 
 # Define the stock symbols and the time range for the data
+# TODO: modify this if want to add more stocks
 stocks = ["AAPL", "NVDA", "GOOGL", "SPY", "QQQ"]
 
 # Define the time range for the data
+# TODO: modify date if needed
 end_date = datetime.now().strftime('%Y-%m-%d')  # Today's date
 start_date = (datetime.now() - timedelta(days=365)).strftime('%Y-%m-%d')  # Date one year ago
 
+# TODO: modify sma periods if needed
 num_periods_short = 50
 num_periods_long = 150
 
