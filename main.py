@@ -4,6 +4,7 @@ import yfinance as yf
 import datetime as dt
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
+import numpy as np
 
 def get_date_x_days_before(date_string, num_days_before):
     date_object = dt.datetime.strptime(date_string, "%Y-%m-%d")
@@ -15,10 +16,11 @@ def get_date_x_days_before(date_string, num_days_before):
 # TODO: modify this if want to add more stocks
 stocks = ["AAPL", "NVDA", "GOOGL", "SPY", "QQQ"]
 
+
 # Define the time range for the data
 # TODO: modify date if needed
 end_date = datetime.now().strftime('%Y-%m-%d')  # Today's date
-start_date = (datetime.now() - timedelta(days=365)).strftime('%Y-%m-%d')  # Date one year ago
+start_date = (datetime.now() - timedelta(days=3650)).strftime('%Y-%m-%d')  # Date 10 year ago
 
 # TODO: modify sma periods if needed
 num_periods_short = 50
@@ -39,8 +41,9 @@ if __name__ == "__main__":
         stock_data["SMA_short"] = stock_data["Close"].rolling(window=num_periods_short).mean()
         stock_data["SMA_long"] = stock_data["Close"].rolling(window=num_periods_long).mean()
 
-        # Find the dates where the SMAs intersect
-        crossover_dates = stock_data[stock_data["SMA_short"] == stock_data["SMA_long"]].index
+        # Calculate the slopes of the SMAs
+        slope_short = np.polyfit(range(num_periods_short), stock_data["SMA_short"].dropna()[-num_periods_short:], 1)[0]
+        slope_long = np.polyfit(range(num_periods_long), stock_data["SMA_long"].dropna()[-num_periods_long:], 1)[0]
 
         # Now that we calculated the SMA, we can remove the dates before the actual start date that we want.
         stock_data = stock_data[start_date:]
@@ -55,13 +58,12 @@ if __name__ == "__main__":
         axs[i].legend()
         axs[i].grid(True)
 
-        # Plot the crossover points
-        for crossover_date in crossover_dates:
-            axs[i].axvline(x=crossover_date, color='r', linestyle='--')
-
         # Convert the start and end dates to datetime objects
         start_date_dt = datetime.strptime(start_date, "%Y-%m-%d")
         end_date_dt = datetime.strptime(end_date, "%Y-%m-%d")
+
+        # Add the slopes to the plot title
+        axs[i].set_title(f"{stock} Close Prices, {num_periods_short}-Day SMA (Slope: {slope_short:.2f}), {num_periods_long}-Day SMA (Slope: {slope_long:.2f})")
 
         # Set the figure size
         fig.set_size_inches(18, 9)
