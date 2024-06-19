@@ -15,24 +15,26 @@ Some stock indicators I would like to use to monitor the stock market.
    ```
 
 2. Install dependencies
-  ```sh
-  pip install -r requirements.txt
-  ```
+   ```sh
+   pip3 install -r requirements.txt
+   ```
+
+3. Setup config.json
+   i. create a file `config.json` and copy content from `config.json.example`
+   ii. modify variables as desired
+   iii. delete lines starts with `//` in the json file(those are just for guideline)
 
 
 ## Usage
 
-1. modify stocks, time-span, SMA day periods in the `config.py` file
+1. Start the project by
+   ```sh
+   python3 main.py
+   ```
 
-2. start the project by
-  ```sh
-  python main.py
-  ```
-
-3. matplotlib will pop out and show graphs
-
-4. `htmlFiles` folder will be created, storing tables of intersection of the selected stocks
-
-5. a browser will open automatically and show the html file
+2. What will happen?
+   i. matplotlib will pop out and show graphs
+   ii.  `htmlFiles` folder will be created, storing tables of intersection of the selected stocks
+   iii. a browser will open automatically and show the html file
 
 
