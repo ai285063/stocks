@@ -20,9 +20,9 @@ Some stock indicators I would like to use to monitor the stock market.
    ```
 
 3. Setup config.json
-   i. create a file `config.json` and copy content from `config.json.example`
-   ii. modify variables as desired
-   iii. delete lines starts with `//` in the json file(those are just for guideline)
+   1. create a file `config.json` and copy content from `config.json.example`
+   2. modify variables as desired
+   3. delete lines starts with `//` in the json file(those are just for guideline)
 
 
 ## Usage
@@ -33,8 +33,8 @@ Some stock indicators I would like to use to monitor the stock market.
    ```
 
 2. What will happen?
-   i. matplotlib will pop out and show graphs
-   ii.  `htmlFiles` folder will be created, storing tables of intersection of the selected stocks
-   iii. a browser will open automatically and show the html file
+   1. matplotlib will pop out and show graphs
+   2.  `htmlFiles` folder will be created, storing tables of intersection of the selected stocks
+   3. a browser will open automatically and show the html file
 
 
