@@ -2,19 +2,18 @@ import pandas as pd
 import yfinance as yf
 import webbrowser
 import os
-from config import stocks, start_date_x_days_before, start_date, end_date, num_periods_short, num_periods_long
+from config import stocks, start_date_x_days_before, end_date, sma_periods_short, sma_periods_long
 
 def display_intersection(stock_data, stock, intersection_dates):
     # Calculate the SMAs
-    stock_data["SMA_short"] = stock_data["Close"].rolling(window=num_periods_short).mean()
-    stock_data["SMA_long"] = stock_data["Close"].rolling(window=num_periods_long).mean()
+    stock_data["SMA_short"] = stock_data["Close"].rolling(window=sma_periods_short).mean()
+    stock_data["SMA_long"] = stock_data["Close"].rolling(window=sma_periods_long).mean()
 
     # Calculate the intersections between the short and long SMAs
     stock_data["Intersection"] = 0
     stock_data.loc[stock_data["SMA_short"] > stock_data["SMA_long"], "Intersection"] = 1
     stock_data["Intersection"] = stock_data["Intersection"].diff()
 
-    # Find the intersection dates
     # Find the intersection dates
     for i in range(len(stock_data)):
       if stock_data["Intersection"].iloc[i] == 1:
