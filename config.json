@@ -1,0 +1,8 @@
+{
+  "stocks": ["AAPL", "NVDA", "GOOGL", "SPY", "QQQ"],
+  "sma_periods_short": 50,
+  "sma_periods_long": 150,
+  "start_date": "2017-01-01",
+  "end_date": "2017-12-31",
+  "days_back": 1825
+}

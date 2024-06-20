@@ -1,0 +1,14 @@
+{
+  // Define desired stock symbols
+  "stocks": ["AAPL", "GOOGL", "MSFT"],
+
+  // Define the SMA periods
+  "sma_periods_short": 50,
+  "sma_periods_long": 150,
+
+  // Choose one: define specific start-end date, or define {days_back}
+  "start_date": "2017-01-01",
+  "end_date": "2017-12-31",
+  // the number of days back from today for the date range. This will override start_date and end_date
+  "days_back": 365
+}
