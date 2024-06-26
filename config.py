@@ -17,8 +17,8 @@ if (config.get("sma_periods_short") == None or config.get("sma_periods_long") ==
 stocks = config.get("stocks")
 
 # Define the time range for the data
-end_date = datetime.now().strftime('%Y-%m-%d') if config["days_back"] else config["end_date"]
-start_date = (datetime.now() - timedelta(days=config["days_back"])).strftime('%Y-%m-%d') if config["days_back"] else config["start_date"]
+end_date = datetime.now().strftime('%Y-%m-%d') if config.get("days_back") else config["end_date"]
+start_date = (datetime.now() - timedelta(days=config.get("days_back"))).strftime('%Y-%m-%d') if config.get("days_back") else config["start_date"]
 
 # Define the SMA periods
 sma_periods_short = config["sma_periods_short"]
