@@ -9,17 +9,27 @@ def display_intersection(stock_data, stock, intersection_dates):
     stock_data["SMA_short"] = stock_data["Close"].rolling(window=sma_periods_short).mean()
     stock_data["SMA_long"] = stock_data["Close"].rolling(window=sma_periods_long).mean()
 
+    # Calculate the slopes for the SMAs
+    stock_data["Slope_SMA_short"] = stock_data["SMA_short"].diff()  # Slope as difference
+    stock_data["Slope_SMA_long"] = stock_data["SMA_long"].diff()  # Slope as difference
+
     # Calculate the intersections between the short and long SMAs
     stock_data["Intersection"] = 0
     stock_data.loc[stock_data["SMA_short"] > stock_data["SMA_long"], "Intersection"] = 1
     stock_data["Intersection"] = stock_data["Intersection"].diff()
 
-    # Find the intersection dates
+    # return intersection_dates
     for i in range(len(stock_data)):
-      if stock_data["Intersection"].iloc[i] == 1:
-          intersection_dates = pd.concat([intersection_dates, pd.DataFrame({"Date": [stock_data.index[i].strftime('%Y-%m-%d')], "Type": ["Golden Cross"]})], ignore_index=True)
-      elif stock_data["Intersection"].iloc[i] == -1:
-          intersection_dates = pd.concat([intersection_dates, pd.DataFrame({"Date": [stock_data.index[i].strftime('%Y-%m-%d')], "Type": ["Death Cross"]})], ignore_index=True)
+        if stock_data["Intersection"].iloc[i] == 1 or stock_data["Intersection"].iloc[i] == -1:
+            intersection_type = "Golden Cross" if stock_data["Intersection"].iloc[i] == 1 else "Death Cross"
+            slope_short = stock_data["Slope_SMA_short"].iloc[i]
+            slope_long = stock_data["Slope_SMA_long"].iloc[i]
+            intersection_dates = pd.concat([intersection_dates, pd.DataFrame({
+                "Date": [stock_data.index[i].strftime('%Y-%m-%d')],
+                "Type": [intersection_type],
+                f"{sma_periods_short}SMA Slope": [slope_short],
+                f"{sma_periods_long}SMA Slope": [slope_long]
+            })], ignore_index=True)
 
     return intersection_dates
 
