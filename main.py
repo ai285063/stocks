@@ -8,8 +8,12 @@ from graph import draw_graph
 from intersection import display_intersection
 
 if __name__ == "__main__":
-    # Create a subplot for each stock
-    fig, axs = plt.subplots(len(stocks))
+    if len(stocks) == 1:
+        fig, axs = plt.subplots(len(stocks))
+        axs = [axs]
+    else:
+        # Create a subplot for each stock
+        fig, axs = plt.subplots(len(stocks))
 
     for i, stock in enumerate(stocks):
         # Grab the stock data
