@@ -23,6 +23,7 @@ Some stock indicators I would like to use to monitor the stock market.
    1. create a file `config.json` and copy content from `config.json.example`
    2. modify variables as desired
    3. Delete lines that start with `//` in `config.json` file (they are just guidelines)
+   * Find company stock symbols on this [website](https://finance.yahoo.com/lookup/)
 
 
 ## Usage
