@@ -18,12 +18,14 @@ if __name__ == "__main__":
     for i, stock in enumerate(stocks):
         # Grab the stock data
         stock_data = yf.download(stock, start=start_date_x_days_before, end=end_date)
+        stock_info = yf.Ticker(stock).info
+        stock_name = stock + ' [' + stock_info["shortName"] + ']'
 
         # Create a DataFrame to store the intersection dates
         intersection_dates = pd.DataFrame(columns=["Date", "Type"])
 
         # Draw the graph
-        draw_graph(stock_data, stock, axs[i])
+        draw_graph(stock_data, stock_name, axs[i])
 
         # Display the intersections
         intersection_dates = display_intersection(stock_data, stock, intersection_dates)
